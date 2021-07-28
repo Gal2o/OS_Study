@@ -1,0 +1,39 @@
+# 인터럽트 (Interrupt)
+  - ### ❗ 예상치 못한, 외부에서 발생한 이벤트
+
+## 인터럽트의 종류
+  - I/O interrupt
+    - ex. 게임(Process)을 할 때, 컴퓨터는 우리가 언제 키보드, 마우스를 조작 할 지 모름 -> I/O interrupt 발생
+  - Clock interrupt
+  - Console intrerupt
+  - System call interrupt
+  - etc..
+
+## 인터럽트 처리 과정
+  - <img src="https://user-images.githubusercontent.com/35948339/127339241-042cdccf-b7db-48f5-a55a-794df5a9bb06.png" weight=600 height=500>
+  - #### 1. ❌ Interrupt : 실행중인 Pi(프로세스)에 인터럽트 발생, Kernel이 개입하여 프로세스가 중단된다.
+  - #### 2. ➡️ Context saving : PCB에 Context를 저장한다 (책 읽다가 책갈피를 꽂는 느낌)
+  - #### 3. ➡️ Interrupt handling : 인터럽트 발생 위치, 원인 파악
+  - #### 4. ➡️ Interrupt service : 알맞는 인터럽트 서비스를 실행한다.
+  - #### 5. ➡️ 인터럽트 서비스가 끝나면, Ready 상태에 있던 다음 실행할 순서의 Pj(프로세스)가 CPU를 할당 받은 후, <br> 자신의 Context를 복구하여 프로세스를 실행한다.
+
+## Context Switching (문맥 교환)
+  - ### ‼ Context ➡️ __프로세스와 관련된 정보와 집합__
+      - ### CPU register context 💾 (CPU에 저장 되어 있음)
+      - ### Code, Data, Stack, PCB  💾 (메모리에 저장 되어 있음)
+  - #### Context saving
+    - 현재 프로세스의 Register Context를 저장하는 작업
+
+  - #### Context restoring
+    - Register Context를 프로세스로 복구하는 작업
+
+  - ### ‼ Context Switching 
+    - ### 실행 중인 프로세스의 Context를 저장하고, 다음 실행할 프로세스의 Context를 복구하는 일
+    - ### 💻 Kernel의 개입으로 이루어진다.
+
+## Context Switch 교체 비용
+  - ### Context Switching에 소요되는 비용
+    - OS 마다 다름
+    - ❌ OS의 성능에 큰 영향을 준다
+  - ### 불필요한 Context Switching을 줄이는 것이 중요하다.
+    - ‼ Thread 사용
